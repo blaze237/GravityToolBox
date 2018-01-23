@@ -1,7 +1,7 @@
 #include "FixedMass.h"
 
 
-FixedMass::FixedMass(Point<double> pos, double mass)
+FixedMass::FixedMass(Vector2<double> pos, double mass)
 :position(pos), mass(mass)
 {
 }
@@ -11,7 +11,7 @@ FixedMass::~FixedMass()
 {
 }
 
-Point<double> FixedMass::getPos(){
+Vector2<double> FixedMass::getPos(){
 	return position;
 }
 
@@ -23,6 +23,6 @@ void FixedMass::setMass(double mass){
 	this->mass = mass;
 }
 
-void FixedMass::setPos(Point<double> position){
+void FixedMass::setPos(Vector2<double> position){
 	this->position = position;
 }

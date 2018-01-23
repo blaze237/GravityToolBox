@@ -1,25 +1,26 @@
 #pragma once
-#include "Point.h"
+#include "Vector2.h"
+
 class FixedMass
 {
 public:
-	FixedMass(Point<double> pos, double mass);
+	FixedMass(Vector2<double> pos, double mass);
 	~FixedMass();
 
 
-	Point<double> getPos();
+	Vector2<double> getPos();
 	double getMass();
 
 	//These are really just here for fun.
 	//As the class name suggests, fixed masses are just that, fixed
 	//but changing them on the fly can have fun, if non realistic results.
 	void setMass(double mass);
-	void setPos(Point<double> position);
+	void setPos(Vector2<double> position);
 
 
 private:
 	double mass;
-	Point<double> position;
+	Vector2<double> position;
 	
 };
 

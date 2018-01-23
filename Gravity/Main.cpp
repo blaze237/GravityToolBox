@@ -371,19 +371,25 @@
 
 
 #include <stdio.h>
-#include "Point.h"
+#include "Vector2.h"
 #include <string>
 #include "MathHelper.h"
 using namespace std;
 int main(int argc, char* argv[])
 {
-	Point<int> p(10, 10); 
+	Vector2<int> p(10, 10); 
 	printf("X: %d Y: %d!\n",p.getX() , p.getY() );
-	Point<int> p2(20, 30);
+	Vector2<int> p2(20, 20);
 	printf("X2: %d Y2: %d!\n", p2.getX(), p2.getY());
 
 	printf("Dist: %lg\n", p.distanceTo(p2));
 	printf("Angle: %lg\n", MathHelper::toDegrees(p.angleTo(p2)));
+
+	
+	Vector2<int> pCopy = p2;
+	pCopy /= 2;
+	printf("XCopy: %d YCopy: %d!\n", pCopy.getX(), pCopy.getY());
+
 
 
 
