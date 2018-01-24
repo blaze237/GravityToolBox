@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClInclude Include="FixedMass.h" />
     <ClInclude Include="MathHelper.h" />
+    <ClInclude Include="PointParticle.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="SimulationCore_3Body.h" />
   </ItemGroup>
@@ -73,6 +74,7 @@
     <ClCompile Include="FixedMass.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathHelper.cpp" />
+    <ClCompile Include="PointParticle.cpp" />
     <ClCompile Include="SimulationCore_3Body.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

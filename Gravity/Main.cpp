@@ -1,40 +1,28 @@
-///*******************************************************************
-//* Program: Restricted 3 Body problem simulation                    *
-//* Author ID: 1016325					                           *
-//* Date: 21/01/13                                                   *
-//*                                                                  *
-//* Description:    												   *
-//* This program uses the Veleocity-Verlet scheme to                 *
-//* simulate the motion of test mass of mass 1 under the gravity of  *
-//* two fixed masses located at (-1,0) and (1,0). The mass's are     *
-//* supplied by the user via command line arguments along with the   *
-//* test mass's initial position and velocity.                       *
-//*													               *
-//* The simulation will exit if it detects that the test mass        *
-//* has collidied with one of the fixed mass's. The program defines  *
-//* a collsion as occuring when the total energy of the test mass    *
-//* differs significantly (defined as +or-0.5) from its initial value*
-//*																   *
-//* The program has 3 different modes fast, normal and fine, with    *
-//* corresponding timesteps of 0.0015, 0.00015 and 0.000015 each     *
-//* respecitvley. The mode is set in the preprocessor statements set *
-//* to 1 for fast, 2 for normal and 3 for fine. Illegal values will  *
-//* default to normal mode.                                          *
-//*                                      				               *
-//* To Compile under unix run : gcc -o3BodySim 1016325_proj1.c -lm   *
-//*																   *
-//* To run type 3BodySim followed by the values of; the masses,the   *
-//* the test mass's inital x and y positions and its x and y         *
-//* velocities, each seperated by a space						       *
-//*																   *
-//* Fast mode requires a maximum of 1000kb free space, normal 10mb   *
-//* and fine 95mb (note these values are for debug enabled, without  *
-//* then the values are approximatley halved                         *
-//*																   *
-//* To enable debugging option of printing energy of the mass to a   *
-//* seperate file, set debug to 1 in the preprocessor staements.     *
-//*******************************************************************/
-//
+#include <stdio.h>
+#include "SimulationCore_3Body.h"
+#include "Vector2.h"
+#include <string>
+#include "MathHelper.h"
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+	double timeStep = 0.00015;
+
+	Vector2<double> pos(5, -3.41);
+	Vector2<double> vel(0.18, 2);
+
+	SimulationCore_3Body simulation(timeStep);
+	simulation.mainLoop(pos, vel);
+
+	printf("Press ENTER/RETURN key to end...");
+	while (getchar() != '\n')
+
+
+	return 0;
+}
+
+
 //#include<stdlib.h>
 //#include<stdio.h>
 //#include <math.h>
@@ -79,7 +67,7 @@
 //	/*The test masses position  and  velocities and  in x and y,its total energy at
 //	time t and its initial energy, and the runtime of the simulation. Initialy we dont know how
 //	many position values there will be as the time step and number of steps may be redefined*/
-//	double *x = NULL; 
+//	double *x = NULL;
 //	double *y = NULL;
 //	double X_Velocity, Y_Velocity, Total_Energy, Initial_Energy, time;
 //
@@ -93,16 +81,11 @@
 //
 //	/* File variables, output is the file to which the trajectory and time is written to.
 //	debug contains the energy of the test mass at each step */
-//	FILE* output;// = fopen("1016325_proj1.out", "w");
-//	FILE* debug;// = fopen("1016325_proj1_Energy.out", "w");
-//
+//	FILE* output;
 //	fopen_s(&output, "1016325_proj1.out", "w");
+//	FILE* debug;
 //	fopen_s(&debug, "1016325_proj1_Energy.out", "w");
 //
-//
-//
-//
-//	printf("**Please input: FM1 mass, FM2 mass, **\n");
 //
 //	/****************************
 //	******VALIDATION SECTION*****
@@ -114,7 +97,7 @@
 //		printf("**     Wrong amount of comand line inputs.           **\n");
 //		printf("**     Please run again with the correct amount (6). **\n");
 //		printf("*******************************************************\n");
-//		validation = 1;
+//		//validation = 1;
 //	}
 //
 //	/* The following checks only occur if the number of inputs is correct as otherwise
@@ -131,7 +114,7 @@
 //			printf("** Input values must be numbers. Please run again with **\n");
 //			printf("** with six numerical inputs.                          **\n");
 //			printf("*********************************************************\n");
-//			validation = 1;
+//			//validation = 1;
 //		}
 //
 //		/* This if statement checks to make sure that the user has not input masses as a negative  */
@@ -140,7 +123,7 @@
 //			printf("*********************** ERROR! **********************\n");
 //			printf("**  Cannot have negative mass values for M+ or M-  **\n");
 //			printf("*****************************************************\n");
-//			validation = 1;
+//			//validation = 1;
 //		}
 //	}
 //
@@ -171,6 +154,14 @@
 //
 //	if (validation == 0)
 //	{
+//
+//		Neg_Mass = 10;
+//		Pos_Mass = 10;
+//		X_Initial = 5;
+//		Y_Initial = -3.41;
+//		X_Velocity = 0.18;
+//		Y_Velocity = 2;
+//
 //		/* The program first checks the mode selected in the preprocessor statements and sets the associated time step.
 //		It also prints the mode selected to inform the user of the mode being used. */
 //		if (Mode == 1) dt = 0.0015, N = 20001, printf("Mode=Fast (dt=%lg Seconds)\n\n", dt);
@@ -190,6 +181,9 @@
 //		/*Input the initial positions to the arrays */
 //		x[0] = X_Initial;
 //		y[0] = Y_Initial;
+//
+//		
+//
 //
 //		/*** This for loop is the main body of the simulation ***/
 //		for (n = 0; n <= N; n++)
@@ -263,10 +257,8 @@
 //	fclose(debug);
 //
 //	/* The memory allocated to x and y earlier is now freed */
-//	if (x != NULL)
-//		free(x);
-//	if (y != NULL)
-//		free(y);
+////	free(x);
+////	free(y);
 //
 //	/* This if statement is the exit point for validation failure */
 //	if (validation == 1)
@@ -364,38 +356,11 @@
 //	X_Acceleration[1] = -((Pos_Mass*X_Dist_To_Pos_Mass*Pos_Mass_Denom) + (Neg_Mass*X_Dist_To_Neg_Mass*Neg_Mass_Denom));
 //	Y_Acceleration[1] = -((Pos_Mass*y[n + 1] * Pos_Mass_Denom) + (Neg_Mass*y[n + 1] * Neg_Mass_Denom));
 //
+//	//SAVE THIS AND USE IN POS FUNCT? THIS WAY DONT HAVE TO RECALC. WOULD NEED TO HANDLE INITIAL THOUGH
+//	//IE, JUST ONE ACCLERATION X,Y VAR 
+//
+//
 //	/***** We then calculate the Velocity at  time t+dt using the Velocity-Verlet scheme *****/
 //	*X_Velocity += (0.5*dt*(X_Acceleration[0] + X_Acceleration[1]));
 //	*Y_Velocity += (0.5*dt*(Y_Acceleration[0] + Y_Acceleration[1]));
 //}
-
-
-#include <stdio.h>
-#include "Vector2.h"
-#include <string>
-#include "MathHelper.h"
-using namespace std;
-int main(int argc, char* argv[])
-{
-	Vector2<int> p(10, 10); 
-	printf("X: %d Y: %d!\n",p.getX() , p.getY() );
-	Vector2<int> p2(20, 20);
-	printf("X2: %d Y2: %d!\n", p2.getX(), p2.getY());
-
-	printf("Dist: %lg\n", p.distanceTo(p2));
-	printf("Angle: %lg\n", MathHelper::toDegrees(p.angleTo(p2)));
-
-	
-	Vector2<int> pCopy = p2;
-	pCopy /= 2;
-	printf("XCopy: %d YCopy: %d!\n", pCopy.getX(), pCopy.getY());
-
-
-
-
-	printf("Press ENTER/RETURN key to end...");
-	while (getchar() != '\n')
-
-
-	return 0;
-}

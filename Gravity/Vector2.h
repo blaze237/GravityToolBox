@@ -10,6 +10,7 @@ public:
 		: x(x), y(y)
 	{
 		static_assert(std::is_arithmetic<T>::value, "Position values must be numeric!");
+		length = sqrt(pow(x, 2) + pow(y, 2));
 	}
 
 	Vector2()
@@ -63,6 +64,7 @@ public:
 	{
 		this->x += p2.x;
 		this->y += p2.y;
+		this->length = sqrt(pow(x, 2) + pow(y, 2));
 		return *this;
 	}
 	//Subtraction assignment operator
@@ -77,6 +79,7 @@ public:
 	{
 		this->x *= m;
 		this->y *= m;
+		this->length = sqrt(pow(x, 2) + pow(y, 2));
 		return *this;
 	}
 	//Division assignment operator
@@ -115,19 +118,27 @@ public:
 	{
 		return y;
 	}
+	inline T getMagnitude() const
+	{
+		return length;
+	}
 	inline void setX(T xNew)
 	{
 		x = xNew;
+		length = sqrt(pow(x, 2) + pow(y, 2));
+
 	}
 	inline void  setY(T yNew)
 	{
 		y = yNew;
+		length = sqrt(pow(x, 2) + pow(y, 2));
 	}
 
 
 private:
 	T x;
 	T y;
+	T length;
 	
 };
 

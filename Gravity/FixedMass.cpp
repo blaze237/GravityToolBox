@@ -11,11 +11,13 @@ FixedMass::~FixedMass()
 {
 }
 
-Vector2<double> FixedMass::getPos(){
+Vector2<double> FixedMass::getPosition() const
+{
 	return position;
 }
 
-double FixedMass::getMass(){
+double FixedMass::getMass() const
+{
 	return mass;
 }
 
@@ -23,6 +25,6 @@ void FixedMass::setMass(double mass){
 	this->mass = mass;
 }
 
-void FixedMass::setPos(Vector2<double> position){
+void FixedMass::setPosition(Vector2<double> position){
 	this->position = position;
 }
