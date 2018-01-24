@@ -27,8 +27,8 @@ void SimulationCore_3Body::stopSimulation()
 void SimulationCore_3Body::mainLoop(const Vector2<double> &pmStartPos, const Vector2<double> &pmStartVelocity)
 {
 	//Set up the fixed masses
-	FixedMass FM1(Vector2<double>(-1.0,0.0), 10);
-	FixedMass FM2(Vector2<double>(1.0, 0.0), 10);
+	FixedMass FM1(Vector2<double>(-1,0), 10);
+	FixedMass FM2(Vector2<double>(1, 0), 10);
 
 	//Initialise point particle properties
 	Vector2<double> position = pmStartPos;
@@ -40,7 +40,7 @@ void SimulationCore_3Body::mainLoop(const Vector2<double> &pmStartPos, const Vec
 	Vector2<double> accelerationNew;
 	int i = 0;
 
-	while (!stop)
+	while (!stop && i <=200001)
 	{
 		i++;
 		//If the energy changes from initial value, then energy conservation has been violated, thus indicating a collision has occured.
@@ -62,7 +62,7 @@ void SimulationCore_3Body::mainLoop(const Vector2<double> &pmStartPos, const Vec
 
 		acceleration = accelerationNew;
 
-		printf("Position: (%.2f , %.2f)\n", position.getX(), position.getY());
+		printf("Position: (%f , %f)\n", position.getX(), position.getY());
 	}
 }
 
@@ -96,12 +96,12 @@ Vector2<double> SimulationCore_3Body::calcAcceleration(const FixedMass &FM1, con
 	double distToM2 = position.distanceTo(FM2.getPos());
 	double xDistToM1 = position.getX() - FM1.getPos().getX();
 	double yDistToM1 = position.getY() - FM1.getPos().getY();
-	double xDistToM2 = position.getX() - FM1.getPos().getX();
-	double yDistToM2 = position.getY() - FM1.getPos().getY();
+	double xDistToM2 = position.getX() - FM2.getPos().getX();
+	double yDistToM2 = position.getY() - FM2.getPos().getY();
 
 	//Use equation of motion to determine new acceleration of the point particle.
-	double xAccelNew = -((FM1.getMass() * xDistToM1) * pow(distToM1, -3) + (FM2.getMass() * xDistToM2) * pow(distToM2, -3));
-	double yAccelNew = -((FM1.getMass() * yDistToM1) * pow(distToM1, -3) + (FM2.getMass() * yDistToM2) * pow(distToM2, -3));
+	double xAccelNew = -(FM1.getMass() * xDistToM1 * pow(distToM1, -3) + (FM2.getMass() * xDistToM2) * pow(distToM2, -3));
+	double yAccelNew = -(FM1.getMass() * yDistToM1 * pow(distToM1, -3) + (FM2.getMass() * yDistToM2) * pow(distToM2, -3));
 
 	return Vector2<double>(xAccelNew, yAccelNew);
 }
