@@ -8,8 +8,8 @@ public:
 	~FixedMass();
 
 
-	Vector2<double> getPos();
-	double getMass();
+	Vector2<double> getPos() const;
+	double getMass() const;
 
 	//These are really just here for fun.
 	//As the class name suggests, fixed masses are just that, fixed

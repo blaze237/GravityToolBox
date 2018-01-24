@@ -11,11 +11,13 @@ FixedMass::~FixedMass()
 {
 }
 
-Vector2<double> FixedMass::getPos(){
+Vector2<double> FixedMass::getPos() const
+{
 	return position;
 }
 
-double FixedMass::getMass(){
+double FixedMass::getMass() const
+{
 	return mass;
 }
 
