@@ -9,8 +9,8 @@ int main(int argc, char* argv[])
 {
 	double timeStep = 0.00015;
 
-	Vector2<double> pos(2, -3.41);
-	Vector2<double> vel(1.18, -3);
+	Vector2<double> pos(5, -3.41);
+	Vector2<double> vel(0.18, 2);
 
 	SimulationCore_3Body simulation(timeStep);
 	simulation.mainLoop(pos, vel);

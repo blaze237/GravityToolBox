@@ -118,7 +118,7 @@ public:
 	{
 		return y;
 	}
-	inline T getLength() const
+	inline T getMagnitude() const
 	{
 		return length;
 	}
