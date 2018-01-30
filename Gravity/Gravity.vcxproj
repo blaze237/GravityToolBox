@@ -38,7 +38,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\VisualStudio_DevLibraries\SDL2-2.0.7\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\VisualStudio_DevLibraries\SDL2-2.0.7\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -47,6 +50,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,6 +72,8 @@
     <ClInclude Include="FixedMass.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="PointParticle.h" />
+    <ClInclude Include="SimulationEngine.h" />
+    <ClInclude Include="SimulationObject.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="SimulationCore_3Body.h" />
   </ItemGroup>
@@ -76,6 +83,9 @@
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="PointParticle.cpp" />
     <ClCompile Include="SimulationCore_3Body.cpp" />
+    <ClCompile Include="SimulationEngine.cpp" />
+    <ClCompile Include="SimulationObject.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
