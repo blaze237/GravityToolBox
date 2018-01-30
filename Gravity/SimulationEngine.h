@@ -1,9 +1,15 @@
 #pragma once
 #include "SimulationObject.h"
 #include <vector>
+#include <SDL.h>
+#include <SDL_image.h>
 class SimulationEngine
 {
 public:
+
+	static const int SDL_INIT_SUCCESS = 0;
+	static const int SDL_INIT_ERROR = -1;
+
 	SimulationEngine();
 	~SimulationEngine();
 
@@ -38,15 +44,10 @@ public:
 		//Draw GUI
 
 
-
-
-
 	//Initalise SDL subsytems and create the window. Non zero return indicates an error has occured.
-	int init();
-
+	int init(const char* windowCaption, int screenWidth, int screenHeight);
 	//The main engine loop, from which rendering, simulation and input is handled.
 	void mainLoop();
-
 
 	//Store a new SimulationObject in the engines internal array.
 	void addObject(const SimulationObject &obj);
@@ -66,24 +67,27 @@ private:
 	void simulationLogic();
 
 	//Redraw the background whenever a whole screen redraw is needed
-	void rerenderBackground();
+	virtual void rerenderBackground();
 	//Tell each SimulationObject to unrender itself(i.e copy the background back over their old position on the screen). DONT REDRAW UNLESS YOU NEED TO. HAVE A FLAG FOR IF POSITION OR APPEARNCE CHNAGED
 	void unrenderObjects();
 	//Undraw any gui elements that have changed since last loop iteration
-	void unrenderGUI();
+	virtual void unrenderGUI();
 
 	//Tell each SimulationObject to render itself
 	void renderObjects();
-	void renderGui();
+	virtual void renderGui();
 
 
 
-	//Handle input
 
-	//Update simulation by one tick
+	std::vector<SimulationObject> objects;
 
-	//Draw particles
+	//Screen dimensions
+	int mScreenWidth;
+	int mScreenheight;
 
-	//Draw GUI
+	SDL_Window* mWindow;
+	SDL_Renderer* mRenderer;
+
 };
 
